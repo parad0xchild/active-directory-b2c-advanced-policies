@@ -1,4 +1,4 @@
-#Part 4 - Address and implement most common advanced identity use cases
+# Part 4 - Address and implement most common advanced identity use cases
 
 Microsoft Corporation
 Published: July 2016
@@ -319,160 +319,88 @@ the *B2CPolicies\\Advanced Policies Starter Pack* folder in the
 
 1.  Add the “generic” IdP as claims provider to the policy.
 
-    a.  Add or uncomment the following under &lt;/BuildingBlocks&gt;
+    a.  Add or uncomment the following under `    </BuildingBlocks>;`
+```
+<ClaimsProviders>;
 
-&lt;ClaimsProviders&gt;
+</ClaimsProviders>;
+```
 
-&lt;/ClaimsProviders&gt;
-
-a.  Insert the following declaration in-between &lt;ClaimProviders&gt;
-    &lt;/ClaimsProviders&gt;
-
-&lt;ClaimsProvider&gt;
-
-&lt;DisplayName&gt;IdentityServer&lt;/DisplayName&gt;
-
-&lt;TechnicalProfiles&gt;
-
-&lt;TechnicalProfile Id="IdentityServer"&gt;
-
-&lt;DisplayName&gt;IdentityServer&lt;/DisplayName&gt;
-
-&lt;Description&gt;IdentityServer&lt;/Description&gt;
-
-&lt;Protocol Name="OpenIdConnect" /&gt;
-
-&lt;OutputTokenFormat&gt;JWT&lt;/OutputTokenFormat&gt;
-
-&lt;Metadata&gt;
-
-&lt;Item Key="METADATA"&gt;
-
-http://contoso369b2cauth.azurewebsites.net/identity/.well-known/openid-configuration
-
-&lt;/Item&gt;
-
-&lt;Item
-Key="ProviderName"&gt;https://contoso369b2cauth.azurewebsites.net/identity&lt;/Item&gt;
-
-&lt;Item
-Key="client\_id"&gt;https://login.microsoftonline.com/te/contoso369b2c&lt;/Item&gt;
-
-&lt;Item
-Key="BearerTokenTransmissionMethod"&gt;AuthorizationHeader&lt;/Item&gt;
-
-&lt;Item Key="scope"&gt;openid userdetails&lt;/Item&gt;
-
-&lt;Item Key="HttpBinding"&gt;POST&lt;/Item&gt;
-
-&lt;Item Key="response\_types"&gt;code&lt;/Item&gt;
-
-&lt;Item
-Key="IdTokenAudience"&gt;https://login.microsoftonline.com/te/contoso369b2c&lt;/Item&gt;
-
-&lt;/Metadata&gt;
-
-&lt;CryptographicKeys&gt;
-
-&lt;Key Id="client\_secret" StorageReferenceId="B2CAuthClientSecret"
-/&gt;
-
-&lt;/CryptographicKeys&gt;
-
-&lt;InputClaims /&gt;
-
-&lt;OutputClaims&gt;
-
-&lt;OutputClaim ClaimTypeReferenceId="userId" PartnerClaimType="oid"
-/&gt;
-
-&lt;OutputClaim ClaimTypeReferenceId="identityProvider"
-PartnerClaimType="idp" DefaultValue="B2CAuth" /&gt;
-
-&lt;OutputClaim ClaimTypeReferenceId="givenName"
-PartnerClaimType="given\_name" /&gt;
-
-&lt;OutputClaim ClaimTypeReferenceId="surname"
-PartnerClaimType="family\_name" /&gt;
-
-&lt;OutputClaim ClaimTypeReferenceId="email" /&gt;
-
-&lt;OutputClaim ClaimTypeReferenceId="displayName"
-PartnerClaimType="name" /&gt;
-
-&lt;OutputClaim ClaimTypeReferenceId="sub" Required="true" /&gt;
-
-&lt;OutputClaim ClaimTypeReferenceId="authenticationSource"
-DefaultValue="socialIdpAuthentication" /&gt;
-
-&lt;/OutputClaims&gt;
-
-&lt;OutputClaimsTransformations&gt;
-
-&lt;OutputClaimsTransformation ReferenceId="CreateRandomUPNUserName"
-/&gt;
-
-&lt;OutputClaimsTransformation ReferenceId="CreateUserPrincipalName"
-/&gt;
-
-&lt;OutputClaimsTransformation ReferenceId="CreateAlternativeSecurityId"
-/&gt;
-
-&lt;OutputClaimsTransformation
-ReferenceId="CreateSubjectClaimFromAlternativeSecurityId" /&gt;
-
-&lt;/OutputClaimsTransformations&gt;
-
-&lt;UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" /&gt;
-
-&lt;/TechnicalProfile&gt;
-
-&lt;/TechnicalProfiles&gt;
-
-&lt;/ClaimsProvider&gt;
-
+a.  Insert the following declaration in-between `<ClaimProviders> ... </ClaimProviders>`
+```xml
+<ClaimsProvider>
+  <DisplayName>IdentityServer</DisplayName>
+  <TechnicalProfiles>
+    <TechnicalProfile Id="IdentityServer">
+      <DisplayName>IdentityServer</DisplayName>
+      <Description>IdentityServer</Description>
+      <Protocol Name="OpenIdConnect" />
+      <OutputTokenFormat>JWT</OutputTokenFormat>
+      <Metadata>
+      <Item Key="METADATA">http://contoso369b2cauth.azurewebsites.net/identity/.well-known/openid-configuration</Item>
+      <Item Key="ProviderName">https://contoso369b2cauth.azurewebsites.net/identity</Item>
+      <Item Key="client_id">https://login.microsoftonline.com/te/contoso369b2c</Item>
+      <Item Key="BearerTokenTransmissionMethod">AuthorizationHeader</Item>
+      <Item Key="scope">openid userdetails</Item>
+      <Item Key="HttpBinding">POST</Item>
+      <Item Key="response_types">code</Item>
+      <Item Key="IdTokenAudience">https://login.microsoftonline.com/te/contoso369b2c</Item>
+      </Metadata>
+      <CryptographicKeys>
+        <Key Id="client_secret" StorageReferenceId="B2CAuthClientSecret"/>
+      </CryptographicKeys>
+      <InputClaims />
+      <OutputClaims>
+        <OutputClaim ClaimTypeReferenceId="userId" PartnerClaimType="oid"/>
+        <OutputClaim ClaimTypeReferenceId="identityProvider" PartnerClaimType="idp" DefaultValue="B2CAuth" />
+        <OutputClaim ClaimTypeReferenceId="givenName" PartnerClaimType="given_name" />
+        <OutputClaim ClaimTypeReferenceId="surname" PartnerClaimType="family_name" />
+        <OutputClaim ClaimTypeReferenceId="email" />
+        <OutputClaim ClaimTypeReferenceId="displayName" PartnerClaimType="name" />
+        <OutputClaim ClaimTypeReferenceId="sub" Required="true" />
+        <OutputClaim ClaimTypeReferenceId="authenticationSource" DefaultValue="socialIdpAuthentication" />
+      </OutputClaims>
+      <OutputClaimsTransformations>
+      <OutputClaimsTransformation ReferenceId="CreateRandomUPNUserName"/>
+        <OutputClaimsTransformation ReferenceId="CreateUserPrincipalName"/>
+        <OutputClaimsTransformation ReferenceId="CreateAlternativeSecurityId"/>
+        <OutputClaimsTransformation ReferenceId="CreateSubjectClaimFromAlternativeSecurityId" />
+      </OutputClaimsTransformations>
+      <UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
+    </TechnicalProfile>
+  </TechnicalProfiles>
+</ClaimsProvider>
+```
 1.  Change in the above XML code snippet the following keys in the
     *Metadata* XML element:
 
 <!-- -->
 
-a.  Modify the *METADATA* key to reflect the based URL where you’ve
-    deployed the OIDC claims provider sample:
-
-http://&lt;your\_deployment&gt;.azurewebsites.net/identity/.well-known/openid-configuration
+  a.  Modify the *METADATA*  key to reflect the based URL where you’ve deployed the OIDC claims provider sample:
+    `http://<your_deployment>.azurewebsites.net/identity/.well-known/openid-configuration`
 
 > for example, in our configuration:
-
 [http://369b2cauth.azurewebsites.net/identity/.well-known/openid-configuration](http://369b2cauth.azurewebsites.net/identity/.well-known/openid-configuration)
 
-**Note** For additional information, see section § *Deploying the OIDC
-claims provider* in the Appendix A. Building the samples of the “Starter
-Pack”.
+**Note** For additional information, see section § *Deploying the OIDC claims provider* in the Appendix A. Building the samples of the “Starter Pack”.
 
-a.  Likewise, modify the *ProviderName* key to reflect the base URL
-    where you’ve deployed the OIDC claims provider sample:
+  a.  Likewise, modify the *ProviderName* key to reflect the base URL where you’ve deployed the OIDC claims provider sample:
+  `http://<your\_deployment>.azurewebsites.net/identity`
 
-http://&lt;your\_deployment&gt;.azurewebsites.net/identity
-
-> for example, in our configuration:
-
+  > for example, in our configuration:
 [http://369b2cauth.azurewebsites.net/identity](http://369b2cauth.azurewebsites.net/identity)
 
-a.  Modify the *client\_id* key
+a.  Modify the *client_id* key
     https://login.microsoftonline.com/te/&lt;*your\_tenant*&gt; to
     reflect your tenant, for example
     [https://login.microsoftonline.com/te/contoso369b2c](https://login.microsoftonline.com/te/contoso369b2c)
     in our configuration.
 
-b.  Change the *IdTokenAudience* key to the same value as the above
-    *client*\_id key. The identity server will use the *client\_id* key
-    value to scope the JSON Web Token (JWT) to the client id.
+b.  Change the *IdTokenAudience* key to the same value as the above *client_id* key. The identity server will use the *client_id* key value to scope the JSON Web Token (JWT) to the client id.
 
-> **At this stage, the policy now contains a reference to the “generic”
-> IdP as claims provider.**
+> **At this stage, the policy now contains a reference to the “generic” IdP as claims provider.**
 
-1.  Add a **SignUpOrSignInWithRestAndIdp** user journey to the
-    *B2C\_1A\_Base\_Extensions* policy:
+1.  Add a **SignUpOrSignInWithRestAndIdp** user journey to the *B2C_1A_Base_Extensions* policy:
 
 <!-- -->
 
@@ -505,47 +433,26 @@ d.  Rename the id **SignUpOrSignIn** to
         our provider in the selection screen.
 
     c.  Add the following line.
-
+```xml
 &lt;UserJourneys&gt;
-
-&lt;UserJourney Id="SignUpOrSignInWithRestAndIdp"&gt;
-
-&lt;AssuranceLevel&gt;LOA1&lt;/AssuranceLevel&gt;
-
-&lt;PreserveOriginalAssertion&gt;false&lt;/PreserveOriginalAssertion&gt;
-
-&lt;OrchestrationSteps&gt;
-
-&lt;OrchestrationStep Order="1" Type="CombinedSignInAndSignUp"
-ContentDefinitionReferenceId="api.signuporsignin"&gt;
-
-&lt;ClaimsProviderSelections&gt;
-
-&lt;ClaimsProviderSelection TargetClaimsExchangeId="FacebookExchange"
-/&gt;
-
-&lt;ClaimsProviderSelection
-TargetClaimsExchangeId="SignUpWithLogonEmailExchange" /&gt;
-
-&lt;ClaimsProviderSelection
-TargetClaimsExchangeId="IdentifyServerExchange" /&gt;
-
-&lt;!----&gt;
-
-&lt;/ClaimsProviderSelections&gt;
-
-&lt;/OrchestrationStep&gt;
-
-…
-
-&lt;OrchestrationSteps&gt;
-
-…
-
-&lt;/UserJourney&gt;
-
+  &lt;UserJourney Id="SignUpOrSignInWithRestAndIdp"&gt;
+    &lt;AssuranceLevel&gt;LOA1&lt;/AssuranceLevel&gt;
+    &lt;PreserveOriginalAssertion&gt;false&lt;/PreserveOriginalAssertion&gt;
+    &lt;OrchestrationSteps&gt;
+      &lt;OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="api.signuporsignin"&gt;
+      &lt;ClaimsProviderSelections&gt;
+        &lt;ClaimsProviderSelection TargetClaimsExchangeId="FacebookExchange"/&gt;
+        &lt;ClaimsProviderSelection TargetClaimsExchangeId="SignUpWithLogonEmailExchange" /&gt;
+        &lt;ClaimsProviderSelection TargetClaimsExchangeId="IdentifyServerExchange" /&gt;
+        &lt;!----&gt;
+      &lt;/ClaimsProviderSelections&gt;
+    &lt;/OrchestrationStep&gt;
+    …
+    &lt;OrchestrationSteps&gt;
+    …
+  &lt;/UserJourney&gt;
 &lt;/UserJourneys&gt;
-
+```
 1.  We now need to map the Id **IdentifyServerExchange** to the right
     technical profile of the OIDC claims provider. When you re-inspect
     the &lt;ClaimsProvider&gt; definition of OIDC claims provider above,
@@ -553,69 +460,36 @@ TargetClaimsExchangeId="IdentifyServerExchange" /&gt;
     **IdentityServer**.
 
 In Orchestration Step order=2, add this mapping by the following line:
-
+```xml
 &lt;UserJourneys&gt;
-
-&lt;UserJourney Id="SignUpOrSignInWithRestAndIdp"&gt;
-
-&lt;AssuranceLevel&gt;LOA1&lt;/AssuranceLevel&gt;
-
-&lt;PreserveOriginalAssertion&gt;false&lt;/PreserveOriginalAssertion&gt;
-
-&lt;OrchestrationSteps&gt;
-
-&lt;OrchestrationStep Order="1" Type="CombinedSignInAndSignUp"
-ContentDefinitionReferenceId="api.signuporsignin"&gt;
-
-…
-
-&lt;/OrchestrationStep&gt;
-
-&lt;!-- Check if the user has selected to sign in using one of the
-social providers --&gt;
-
-&lt;OrchestrationStep Order="2" Type="ClaimsExchange"&gt;
-
-&lt;Preconditions&gt;
-
-&lt;Precondition Type="ClaimsExist" ExecuteActionsIf="true"&gt;
-
-&lt;Value&gt;objectId&lt;/Value&gt;
-
-&lt;Action&gt;SkipThisOrchestrationStep&lt;/Action&gt;
-
-&lt;/Precondition&gt;
-
-&lt;/Preconditions&gt;
-
-&lt;ClaimsExchanges&gt;
-
-&lt;ClaimsExchange Id="FacebookExchange"
-TechnicalProfileReferenceId="Facebook-OAUTH" /&gt;
-
-&lt;ClaimsExchange Id="SignUpWithLogonEmailExchange"
-
-TechnicalProfileReferenceId="LocalAccountSignUpWithLogonEmail" /&gt;
-
-&lt;ClaimsExchange Id="IdentifyServerExchange"
-TechnicalProfileReferenceId="IdentityServer" /&gt;
-
-&lt;!----&gt;
-
-&lt;/ClaimsExchanges&gt;
-
-&lt;/OrchestrationStep&gt;
-
-…
-
-&lt;OrchestrationSteps&gt;
-
-…
-
-&lt;/UserJourney&gt;
-
+  &lt;UserJourney Id="SignUpOrSignInWithRestAndIdp"&gt;
+    &lt;AssuranceLevel&gt;LOA1&lt;/AssuranceLevel&gt;
+    &lt;PreserveOriginalAssertion&gt;false&lt;/PreserveOriginalAssertion&gt;
+    &lt;OrchestrationSteps&gt;
+      &lt;OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="api.signuporsignin"&gt;
+      …
+      &lt;/OrchestrationStep&gt;
+      &lt;!-- Check if the user has selected to sign in using one of the social providers --&gt;
+      &lt;OrchestrationStep Order="2" Type="ClaimsExchange"&gt;
+        &lt;Preconditions&gt;
+          &lt;Precondition Type="ClaimsExist" ExecuteActionsIf="true"&gt;
+          &lt;Value&gt;objectId&lt;/Value&gt;
+          &lt;Action&gt;SkipThisOrchestrationStep&lt;/Action&gt;
+          &lt;/Precondition&gt;
+        &lt;/Preconditions&gt;
+        &lt;ClaimsExchanges&gt;
+          &lt;ClaimsExchange Id="FacebookExchange" TechnicalProfileReferenceId="Facebook-OAUTH" /&gt;
+          &lt;ClaimsExchange Id="SignUpWithLogonEmailExchange" TechnicalProfileReferenceId="LocalAccountSignUpWithLogonEmail" /&gt;
+          &lt;ClaimsExchange Id="IdentifyServerExchange" TechnicalProfileReferenceId="IdentityServer" /&gt;
+          &lt;!----&gt;
+        &lt;/ClaimsExchanges&gt;
+      &lt;/OrchestrationStep&gt;
+        …
+      &lt;OrchestrationSteps&gt;
+        …
+    &lt;/UserJourney&gt;
 &lt;/UserJourneys&gt;
-
+```
 **You are now done with the configuration of the “generic” IdP as claims
 provider.**
 
