@@ -270,7 +270,7 @@ This said, this section notably covers how to:
     provider.
 
 2.  Add the “generic” IdP as claims provider to the
-    *B2C\_1A\_Base\_Extensions* premium policy of the “Starter Pack”.
+    *B2C_1A_Base_Extensions* premium policy of the “Starter Pack”.
 
 3.  Eventually test the “generic” IdP as claims provider.
 
@@ -287,14 +287,14 @@ provider, proceed with the following steps:
 The *Starter-Pack* folder corresponds to the path
 *C:\\Code\\AAD-B2C\\B2CDemoTools-master* in our configuration.
 
-PS&gt; cd C:\\Code\\AAD-B2C\\B2CDemoTools-master\\ExploreAdmin
+PS> cd C:\\Code\\AAD-B2C\\B2CDemoTools-master\\ExploreAdmin
 
 1.  Generate the cryptographic key in your B2C tenant by running the
     following commands:
 
-PS&gt; Import-Module .\\ExploreAdmin.dll
+PS> Import-Module .\\ExploreAdmin.dll
 
-PS&gt; Set-CpimKeyContainer -Tenant contoso369b2c.onmicrosoft.com
+PS> Set-CpimKeyContainer -Tenant contoso369b2c.onmicrosoft.com
 -StorageReferenceId B2CAuthClientSecret -UnencodedAsciiKey abcdef
 
 **Note** The B2CAuthClientSecret *abcdef* is preset in the ODIC claims
@@ -303,12 +303,12 @@ provider as basic authentication credentials.
 ### Configuring a “generic” IdP as a claims provider in your policy
 
 As outlined before, we will add the “generic” IdP as claims provider to
-the *B2C\_1A\_Base\_Extensions* premium policy of the “Starter Pack”.
+the *B2C_1A_Base_Extensions* premium policy of the “Starter Pack”.
 
 Proceed with the following steps:
 
 1.  Use your favorite XML editor to open the
-    *&lt;your\_b2c\_tenant&gt;\_B2C\_1A\_Base\_Extensions.xml* policy
+    *<your\_b2c\_tenant>\_B2C\_1A\_Base\_Extensions.xml* policy
     XML file of the “Starter Pack”, i.e. the file
     *contoso369b2c.onmicrosoft.com\_B2C\_1A\_Base\_Extensions.xml* in
     our configuration.
@@ -391,7 +391,7 @@ a.  Insert the following declaration in-between `<ClaimProviders> ... </ClaimPro
 [http://369b2cauth.azurewebsites.net/identity](http://369b2cauth.azurewebsites.net/identity)
 
 a.  Modify the *client_id* key
-    https://login.microsoftonline.com/te/&lt;*your\_tenant*&gt; to
+    https://login.microsoftonline.com/te/<*your\_tenant*> to
     reflect your tenant, for example
     [https://login.microsoftonline.com/te/contoso369b2c](https://login.microsoftonline.com/te/contoso369b2c)
     in our configuration.
@@ -405,18 +405,18 @@ b.  Change the *IdTokenAudience* key to the same value as the above *client_id* 
 <!-- -->
 
 a.  Open the base policy XML file
-    *&lt;your\_b2c\_tenant&gt;\_B2C\_1A\_Base.xml* of the “Starter
+    *<your\_b2c\_tenant>\_B2C\_1A\_Base.xml* of the “Starter
     Pack”, for example
     *contoso369b2c.onmicrosoft.com\_B2C\_1A\_Base.xml* in our
     configuration.
 
-b.  Search for “*&lt;UserJourney Id="SignUpOrSignIn"&gt;*”. Copy the
+b.  Search for “*<UserJourney Id="SignUpOrSignIn">*”. Copy the
     full user journey, i.e. the full XML element.
 
 c.  Back in the file
-    *&lt;your\_b2c\_tenant&gt;\_B2C\_1A\_Base\_Extensions.xml*, paste
-    beyond *&lt;/ClaimsProviders&gt;*. Enclose the *UserJourney* XML
-    element by *&lt;UserJourneys&gt;&lt;/UserJourneys&gt;*.
+    *<your\_b2c\_tenant>\_B2C\_1A\_Base\_Extensions.xml*, paste
+    beyond *</ClaimsProviders>*. Enclose the *UserJourney* XML
+    element by *<UserJourneys></UserJourneys>*.
 
 d.  Rename the id **SignUpOrSignIn** to
     **SignUpOrSignInWithRestAndIdp**.
@@ -426,7 +426,7 @@ d.  Rename the id **SignUpOrSignIn** to
 1.  Change the **SignUpOrSignInWithRestAndIdp** user journey to include
     the “generic” IdP as claims provider.
 
-    a.  Find “*&lt;UserJourney Id="SignUpOrSignInWithRestAndIdp"&gt;*”
+    a.  Find “*<UserJourney Id="SignUpOrSignInWithRestAndIdp">*”
         in the policy.
 
     b.  Find “*Orchestration Step order=1*” underneath. We need to add
@@ -434,61 +434,61 @@ d.  Rename the id **SignUpOrSignIn** to
 
     c.  Add the following line.
 ```xml
-&lt;UserJourneys&gt;
-  &lt;UserJourney Id="SignUpOrSignInWithRestAndIdp"&gt;
-    &lt;AssuranceLevel&gt;LOA1&lt;/AssuranceLevel&gt;
-    &lt;PreserveOriginalAssertion&gt;false&lt;/PreserveOriginalAssertion&gt;
-    &lt;OrchestrationSteps&gt;
-      &lt;OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="api.signuporsignin"&gt;
-      &lt;ClaimsProviderSelections&gt;
-        &lt;ClaimsProviderSelection TargetClaimsExchangeId="FacebookExchange"/&gt;
-        &lt;ClaimsProviderSelection TargetClaimsExchangeId="SignUpWithLogonEmailExchange" /&gt;
-        &lt;ClaimsProviderSelection TargetClaimsExchangeId="IdentifyServerExchange" /&gt;
-        &lt;!----&gt;
-      &lt;/ClaimsProviderSelections&gt;
-    &lt;/OrchestrationStep&gt;
+<UserJourneys/>
+  <UserJourney Id="SignUpOrSignInWithRestAndIdp">
+    <AssuranceLevel>LOA1</AssuranceLevel>
+    <PreserveOriginalAssertion>false</PreserveOriginalAssertion>
+    <OrchestrationSteps>
+      <OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="api.signuporsignin">
+      <ClaimsProviderSelections>
+        <ClaimsProviderSelection TargetClaimsExchangeId="FacebookExchange"/>
+        <ClaimsProviderSelection TargetClaimsExchangeId="SignUpWithLogonEmailExchange" />
+        <ClaimsProviderSelection TargetClaimsExchangeId="IdentifyServerExchange" />
+        <!---->
+      </ClaimsProviderSelections>
+    </OrchestrationStep>
     …
-    &lt;OrchestrationSteps&gt;
+    <OrchestrationSteps>
     …
-  &lt;/UserJourney&gt;
-&lt;/UserJourneys&gt;
+  </UserJourney>
+</UserJourneys>
 ```
 1.  We now need to map the Id **IdentifyServerExchange** to the right
     technical profile of the OIDC claims provider. When you re-inspect
-    the &lt;ClaimsProvider&gt; definition of OIDC claims provider above,
+    the <ClaimsProvider> definition of OIDC claims provider above,
     you will notice that we have a technical profile called
     **IdentityServer**.
 
 In Orchestration Step order=2, add this mapping by the following line:
 ```xml
-&lt;UserJourneys&gt;
-  &lt;UserJourney Id="SignUpOrSignInWithRestAndIdp"&gt;
-    &lt;AssuranceLevel&gt;LOA1&lt;/AssuranceLevel&gt;
-    &lt;PreserveOriginalAssertion&gt;false&lt;/PreserveOriginalAssertion&gt;
-    &lt;OrchestrationSteps&gt;
-      &lt;OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="api.signuporsignin"&gt;
+<UserJourneys>
+  <UserJourney Id="SignUpOrSignInWithRestAndIdp">
+    <AssuranceLevel>LOA1</AssuranceLevel>
+    <PreserveOriginalAssertion>false</PreserveOriginalAssertion>
+    <OrchestrationSteps>
+      <OrchestrationStep Order="1" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="api.signuporsignin">
       …
-      &lt;/OrchestrationStep&gt;
-      &lt;!-- Check if the user has selected to sign in using one of the social providers --&gt;
-      &lt;OrchestrationStep Order="2" Type="ClaimsExchange"&gt;
-        &lt;Preconditions&gt;
-          &lt;Precondition Type="ClaimsExist" ExecuteActionsIf="true"&gt;
-          &lt;Value&gt;objectId&lt;/Value&gt;
-          &lt;Action&gt;SkipThisOrchestrationStep&lt;/Action&gt;
-          &lt;/Precondition&gt;
-        &lt;/Preconditions&gt;
-        &lt;ClaimsExchanges&gt;
-          &lt;ClaimsExchange Id="FacebookExchange" TechnicalProfileReferenceId="Facebook-OAUTH" /&gt;
-          &lt;ClaimsExchange Id="SignUpWithLogonEmailExchange" TechnicalProfileReferenceId="LocalAccountSignUpWithLogonEmail" /&gt;
-          &lt;ClaimsExchange Id="IdentifyServerExchange" TechnicalProfileReferenceId="IdentityServer" /&gt;
-          &lt;!----&gt;
-        &lt;/ClaimsExchanges&gt;
-      &lt;/OrchestrationStep&gt;
+      </OrchestrationStep>
+      <!-- Check if the user has selected to sign in using one of the social providers -->
+      <OrchestrationStep Order="2" Type="ClaimsExchange">
+        <Preconditions>
+          <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+          <Value>objectId</Value>
+          <Action>SkipThisOrchestrationStep</Action>
+          </Precondition>
+        </Preconditions>
+        <ClaimsExchanges>
+          <ClaimsExchange Id="FacebookExchange" TechnicalProfileReferenceId="Facebook-OAUTH" />
+          <ClaimsExchange Id="SignUpWithLogonEmailExchange" TechnicalProfileReferenceId="LocalAccountSignUpWithLogonEmail" />
+          <ClaimsExchange Id="IdentifyServerExchange" TechnicalProfileReferenceId="IdentityServer" />
+          <!---->
+        </ClaimsExchanges>
+      </OrchestrationStep>
         …
-      &lt;OrchestrationSteps&gt;
+      <OrchestrationSteps>
         …
-    &lt;/UserJourney&gt;
-&lt;/UserJourneys&gt;
+    </UserJourney>
+</UserJourneys>
 ```
 **You are now done with the configuration of the “generic” IdP as claims
 provider.**
@@ -504,7 +504,7 @@ provider.**
 
     c.  Check **Overwrite the policy if it exists** and Click **Select a
         file**. Browse and select the modified policy XML file
-        *&lt;your\_b2c\_tenant&gt;\_B2C\_1A\_Base\_Extensions.xml*, i.e.
+        *<your\_b2c\_tenant>\_B2C\_1A\_Base\_Extensions.xml*, i.e.
         the file
         *contoso369b2c.onmicrosoft.com\_B2C\_1A\_Base\_Extensions.xml*
         in our configuration.
@@ -549,8 +549,8 @@ will be highlighted on purpose if any.
 The **Add-ADFSRelyingPartyTrust** cmdlet enables to add a new relying
 party trust to your AD FS deployment:
 
-Add-ADFSRelyingPartyTrust -Identifier &lt;String\[\]&gt; -Name
-&lt;String&gt; -WSFedEndpoint &lt;Uri&gt;
+Add-ADFSRelyingPartyTrust -Identifier <String\[\]> -Name
+<String> -WSFedEndpoint <Uri>
 
 > **Note** For additional information, see Microsoft TechNet article
 > [Add-AdfsRelyingPartyTrust](https://technet.microsoft.com/en-us/library/dn479341(v=wps.630).aspx).
@@ -567,8 +567,8 @@ The value of this parameter should be set as follows with Azure B2C
 Premium unless specified otherwise in the metadata of the related WS-Fed
 claims provider technical profile in the XML policy file:
 
-https://&lt;*B2C service
-hostname*&gt;/&lt;*your\_b2c\_tenant*&gt;/&lt;*your\_premium\_policy*&gt;
+https://<*B2C service
+hostname*>/<*your\_b2c\_tenant*>/<*your\_premium\_policy*>
 
 For example:
 
@@ -577,13 +577,13 @@ For example:
 
 Where:
 
--   &lt;*B2C service hostname*&gt; is specified by
+-   <*B2C service hostname*> is specified by
     *login.microsoftonline.com/te*.
 
--   &lt;*your\_b2c\_tenant*&gt; is specified by
+-   <*your\_b2c\_tenant*> is specified by
     *contoso269.onmicrosoft.com*.
 
--   &lt;*your\_premium\_policy*&gt; is *B2C\_1A\_base\_extensions*.
+-   <*your\_premium\_policy*> is *B2C\_1A\_base\_extensions*.
 
 Generally speaking, AD FS when acting as a claims provider must normally
 be configured to return the issued SAML security token to specific
@@ -594,8 +594,8 @@ to the *WSFedEndpoint* argument of the cmdlet.
 
 The *WSFedEndpoint* argument must be set to:
 
-https://&lt;*B2C service
-hostname*&gt;/&lt;*your\_b2c\_tenant*&gt;/&lt;*your\_premium\_policy*&gt;/WSFED/SSO/ASSERTIONCONSUMER
+https://<*B2C service
+hostname*>/<*your\_b2c\_tenant*>/<*your\_premium\_policy*>/WSFED/SSO/ASSERTIONCONSUMER
 
 For example:
 
@@ -604,13 +604,13 @@ For example:
 The following command line illustrates how to create a Relying Party
 trust named “*Contoso369b2c B2C Tenant*” in AD FS:
 
-PS &gt; \$wsRealm =
+PS > \$wsRealm =
 "https://login.microsoftonline.com/te/contoso369b2c.onmicrosoft.com/B2C\_1A\_base\_extensions"
 
-PS &gt; \$wsReply =
+PS > \$wsReply =
 "https://login.microsoftonline.com/te/contoso369b2c.onmicrosoft.com/B2C\_1A\_base\_extensions/WSFED/SSO/ASSERTIONCONSUMER"
 
-PS &gt; Add-ADFSRelyingPartyTrust -Identifier \$wsRealm -Name
+PS > Add-ADFSRelyingPartyTrust -Identifier \$wsRealm -Name
 'Contoso369b2c B2C Tenant' -WSFedEndpoint \$wsReply
 
 As per above configuration, the **Identifier** tab of the *Contoso369b2c
@@ -759,25 +759,25 @@ so that Azure AD B2C Premium can appropriately handle this claim type,
 you will need to add the following information to extend the
 *ClaimsSchema* XML collection element.
 
-&lt;BuildingBlocks&gt;
+<BuildingBlocks>
 
-&lt;ClaimsSchema&gt;
+<ClaimsSchema>
 
-&lt;ClaimType Id="employeeNumber"&gt;
+<ClaimType Id="employeeNumber">
 
-&lt;DisplayName&gt;Employee Number&lt;/DisplayName&gt;
+<DisplayName>Employee Number</DisplayName>
 
-&lt;DataType&gt;string&lt;/DataType&gt;
+<DataType>string</DataType>
 
-&lt;AdminHelpText&gt;Employee number&lt;/AdminHelpText&gt;
+<AdminHelpText>Employee number</AdminHelpText>
 
-&lt;UserHelpText&gt;Your employee number&lt;/UserHelpText&gt;
+<UserHelpText>Your employee number</UserHelpText>
 
-&lt;/ClaimType&gt;
+</ClaimType>
 
-&lt;/ClaimsSchema&gt;
+</ClaimsSchema>
 
-&lt;/BuildingBlocks&gt;
+</BuildingBlocks>
 
 **Note** For additional information, see section § *Setting up suitable
 claims* later in this document.
@@ -791,67 +791,67 @@ can expect ADFS as claims provider.
 The following XML code snippet illustrates the information to provide in
 our example:
 
-&lt;ClaimsProvider&gt;
+<ClaimsProvider>
 
-&lt;Domain&gt;contoso369.com&lt;/Domain&gt;
+<Domain>contoso369.com</Domain>
 
-&lt;DisplayName&gt;On-premises ADFS&lt;/DisplayName&gt;
+<DisplayName>On-premises ADFS</DisplayName>
 
-&lt;TechnicalProfiles&gt;
+<TechnicalProfiles>
 
-&lt;TechnicalProfile Id="ADFS-WSFED-Outbound"&gt;
+<TechnicalProfile Id="ADFS-WSFED-Outbound">
 
-&lt;DisplayName&gt;Contoso369 Inc.&lt;/DisplayName&gt;
+<DisplayName>Contoso369 Inc.</DisplayName>
 
-&lt;Description&gt;Contoso369 IS STS&lt;/Description&gt;
+<Description>Contoso369 IS STS</Description>
 
-&lt;Protocol Name="WsFed" /&gt;
+<Protocol Name="WsFed" />
 
-&lt;Metadata&gt;
+<Metadata>
 
-&lt;Item
-Key="PartnerEntity"&gt;https://adfs.contoso369.com/FederationMetadata/2007-06/FederationMetadata.xml&lt;/Item&gt;
+<Item
+Key="PartnerEntity">https://adfs.contoso369.com/FederationMetadata/2007-06/FederationMetadata.xml</Item>
 
-&lt;/Metadata&gt;
+</Metadata>
 
-&lt;OutputClaims&gt;
+<OutputClaims>
 
-&lt;OutputClaim ClaimTypeReferenceId="UserId"
-PartnerClaimType="employeeNumber" /&gt;
+<OutputClaim ClaimTypeReferenceId="UserId"
+PartnerClaimType="employeeNumber" />
 
-&lt;OutputClaim ClaimTypeReferenceId="givenName" /&gt;
+<OutputClaim ClaimTypeReferenceId="givenName" />
 
-&lt;OutputClaim ClaimTypeReferenceId="surname" /&gt;
+<OutputClaim ClaimTypeReferenceId="surname" />
 
-&lt;OutputClaim ClaimTypeReferenceId="email" PartnerClaimType="UPN"
-/&gt;
+<OutputClaim ClaimTypeReferenceId="email" PartnerClaimType="UPN"
+/>
 
-&lt;OutputClaim ClaimTypeReferenceId="identityProvider"
-DefaultValue="contoso369.com" /&gt;
+<OutputClaim ClaimTypeReferenceId="identityProvider"
+DefaultValue="contoso369.com" />
 
-&lt;OutputClaim ClaimTypeReferenceId="authenticationSource"
-DefaultValue="socialIdpAuthentication" /&gt;
+<OutputClaim ClaimTypeReferenceId="authenticationSource"
+DefaultValue="socialIdpAuthentication" />
 
-&lt;/OutputClaims&gt;
+</OutputClaims>
 
-&lt;OutputClaimsTransformations&gt;
+<OutputClaimsTransformations>
 
-&lt;OutputClaimsTransformation
-ClaimTypeReferenceId="CreateUserPrincipalName" /&gt;
+<OutputClaimsTransformation
+ClaimTypeReferenceId="CreateUserPrincipalName" />
 
-&lt;OutputClaimsTransformation
-ClaimTypeReferenceId="CreateAlternativeSecurityId" /&gt;
+<OutputClaimsTransformation
+ClaimTypeReferenceId="CreateAlternativeSecurityId" />
 
-&lt;OutputClaimsTransformation
-ClaimTypeReferenceId="CreateSubjectClaimFromAlternativeSecurityId" /&gt;
+<OutputClaimsTransformation
+ClaimTypeReferenceId="CreateSubjectClaimFromAlternativeSecurityId" />
 
-&lt;/OutputClaimsTransformations&gt;
+</OutputClaimsTransformations>
 
-&lt;/TechnicalProfile&gt;
+</TechnicalProfile>
 
-&lt;/TechnicalProfiles&gt;
+</TechnicalProfiles>
 
-&lt;ClaimsProvider&gt;
+<ClaimsProvider>
 
 You will not be surprised that the protocol being used here is the
 **WsFed** (WS-Federation) protocol. (It could also have been **SAML2**
@@ -883,38 +883,38 @@ Regardless of how this policy has been defined, you may end up with a
 XML code snippet like the following one that will serve for our
 illustration:
 
-&lt;UserJourneys&gt;
+<UserJourneys>
 
-&lt;UserJourney Id="B2CSignUpOrSignInWithPassword"&gt;
+<UserJourney Id="B2CSignUpOrSignInWithPassword">
 
-&lt;OrchestrationSteps&gt;
+<OrchestrationSteps>
 
-&lt;OrchestrationStep Order="1" Type="CombinedSignInAndSignUp"
+<OrchestrationStep Order="1" Type="CombinedSignInAndSignUp"
 
-ContentDefinitionReferenceId="api.signinandsignupwithpassword"&gt;
+ContentDefinitionReferenceId="api.signinandsignupwithpassword">
 
-&lt;ClaimsProviderSelections&gt;
+<ClaimsProviderSelections>
 
-&lt;ClaimsProviderSelection TargetClaimsExchangeId="GoogleExchange"
-/&gt;
+<ClaimsProviderSelection TargetClaimsExchangeId="GoogleExchange"
+/>
 
-&lt;ClaimsProviderSelection TargetClaimsExchangeId="FacebookExchange"
-/&gt;
+<ClaimsProviderSelection TargetClaimsExchangeId="FacebookExchange"
+/>
 
-&lt;ClaimsProviderSelection
+<ClaimsProviderSelection
 TargetClaimsExchangeId="ReadAndCreateSsoSession"
 
-ValidationClaimsExchangeId="LocalAccountSigninEmailExchange" /&gt;
+ValidationClaimsExchangeId="LocalAccountSigninEmailExchange" />
 
-&lt;/ClaimsProviderSelections&gt;
+</ClaimsProviderSelections>
 
-&lt;/OrchestrationStep&gt;
+</OrchestrationStep>
 
-&lt;/OrchestrationSteps&gt;
+</OrchestrationSteps>
 
-&lt;/UserJourney&gt;
+</UserJourney>
 
-&lt;/UserJourneys&gt;
+</UserJourneys>
 
 On that basis, you will need to:
 
@@ -939,92 +939,92 @@ exist already.
 The following XML code snippet illustrates the information to provide in
 our example:
 
-&lt;UserJourneys&gt;
+<UserJourneys>
 
-&lt;UserJourney Id="B2CSignUpOrSignInWithPassword"&gt;
+<UserJourney Id="B2CSignUpOrSignInWithPassword">
 
-&lt;OrchestrationSteps&gt;
+<OrchestrationSteps>
 
-&lt;OrchestrationStep Order="1" Type="CombinedSignInAndSignUp"
+<OrchestrationStep Order="1" Type="CombinedSignInAndSignUp"
 
-ContentDefinitionReferenceId="api.signinandsignupwithpassword"&gt;
+ContentDefinitionReferenceId="api.signinandsignupwithpassword">
 
-&lt;ClaimsProviderSelections&gt;
+<ClaimsProviderSelections>
 
-&lt;ClaimsProviderSelection TargetClaimsExchangeId="GoogleExchange"
-/&gt;
+<ClaimsProviderSelection TargetClaimsExchangeId="GoogleExchange"
+/>
 
-&lt;ClaimsProviderSelection TargetClaimsExchangeId="FacebookExchange"
-/&gt;
+<ClaimsProviderSelection TargetClaimsExchangeId="FacebookExchange"
+/>
 
-&lt;ClaimsProviderSelection
+<ClaimsProviderSelection
 TargetClaimsExchangeId="ReadAndCreateSsoSession"
 
-ValidationClaimsExchangeId="LocalAccountSigninEmailExchange" /&gt;
+ValidationClaimsExchangeId="LocalAccountSigninEmailExchange" />
 
-&lt;ClaimsProviderSelection TargetClaimsExchangeId="AdfsExchange" /&gt;
+<ClaimsProviderSelection TargetClaimsExchangeId="AdfsExchange" />
 
-&lt;/ClaimsProviderSelections&gt;
+</ClaimsProviderSelections>
 
-&lt;/OrchestrationStep&gt;
+</OrchestrationStep>
 
-&lt;OrchestrationStep Order="2" Type="ClaimsExchange"&gt;
+<OrchestrationStep Order="2" Type="ClaimsExchange">
 
-&lt;ClaimsExchanges&gt;
+<ClaimsExchanges>
 
-&lt;ClaimsExchange Id="AdfsExchange"
-TechnicalProfileReferenceId="ADFS-WSFED-Outbound" /&gt;
+<ClaimsExchange Id="AdfsExchange"
+TechnicalProfileReferenceId="ADFS-WSFED-Outbound" />
 
-&lt;/ClaimsExchanges&gt;
+</ClaimsExchanges>
 
-&lt;/OrchestrationStep&gt;
+</OrchestrationStep>
 
-&lt;/OrchestrationSteps&gt;
+</OrchestrationSteps>
 
-&lt;/UserJourney&gt;
+</UserJourney>
 
-&lt;/UserJourneys&gt;
+</UserJourneys>
 
 #### Modifying the relaying party
 
 Eventually, you will need to amend the list of the output claims you’d
 like to send to the relaying party application:
 
-&lt;RelyingParty&gt;
+<RelyingParty>
 
-&lt;DefaultUserJourney ReferenceId="B2CSignUpOrSignInWithPassword" /&gt;
+<DefaultUserJourney ReferenceId="B2CSignUpOrSignInWithPassword" />
 
-&lt;TechnicalProfile Id="PolicyProfile"&gt;
+<TechnicalProfile Id="PolicyProfile">
 
-&lt;DisplayName&gt;PolicyProfile&lt;/DisplayName&gt;
+<DisplayName>PolicyProfile</DisplayName>
 
-&lt;Protocol Name="OpenIdConnect" /&gt;
+<Protocol Name="OpenIdConnect" />
 
-&lt;OutputClaims&gt;
+<OutputClaims>
 
-&lt;OutputClaim ClaimTypeReferenceId="displayName" /&gt;
+<OutputClaim ClaimTypeReferenceId="displayName" />
 
-&lt;OutputClaim ClaimTypeReferenceId="email" /&gt;
+<OutputClaim ClaimTypeReferenceId="email" />
 
-&lt;OutputClaim ClaimTypeReferenceId="givenName" /&gt;
+<OutputClaim ClaimTypeReferenceId="givenName" />
 
-&lt;OutputClaim ClaimTypeReferenceId="identityProvider" /&gt;
+<OutputClaim ClaimTypeReferenceId="identityProvider" />
 
-&lt;OutputClaim ClaimTypeReferenceId="objectId" /&gt;
+<OutputClaim ClaimTypeReferenceId="objectId" />
 
-&lt;OutputClaim ClaimTypeReferenceId="sub" /&gt;
+<OutputClaim ClaimTypeReferenceId="sub" />
 
-&lt;OutputClaim ClaimTypeReferenceId="surname" /&gt;
+<OutputClaim ClaimTypeReferenceId="surname" />
 
-&lt;OutputClaim ClaimTypeReferenceId="UserId" /&gt;
+<OutputClaim ClaimTypeReferenceId="UserId" />
 
-&lt;/OutputClaims&gt;
+</OutputClaims>
 
-&lt;SubjectNamingInfo ClaimType="sub" /&gt;
+<SubjectNamingInfo ClaimType="sub" />
 
-&lt;/TechnicalProfile&gt;
+</TechnicalProfile>
 
-&lt;/RelyingParty&gt;
+</RelyingParty>
 
 Et voila!
 
@@ -1113,25 +1113,25 @@ the “*YourClientIDValue*” and “*YourClientSecretValue*” values.
 The following XML code snippet illustrates the above: *+ instructions
 that relate to cryptographic key for the “YourClientSecretValue” value.*
 
-&lt;ClaimsProvider&gt;
+<ClaimsProvider>
 
-&lt;DisplayName&gt;Amazon&lt;/DisplayName&gt;
+<DisplayName>Amazon</DisplayName>
 
-&lt;TechnicalProfiles&gt;
+<TechnicalProfiles>
 
-&lt;TechnicalProfile Id="Amazon-OAUTH"&gt;
+<TechnicalProfile Id="Amazon-OAUTH">
 
-&lt;Metadata&gt;
+<Metadata>
 
-&lt;Item Key="client\_id"&gt;***YourClientIDValue***&lt;/Item&gt;
+<Item Key="client\_id">***YourClientIDValue***</Item>
 
-&lt;/Metadata&gt;
+</Metadata>
 
-&lt;/TechnicalProfile&gt;
+</TechnicalProfile>
 
-&lt;/TechnicalProfiles&gt;
+</TechnicalProfiles>
 
-&lt;/ClaimsProvider&gt;
+</ClaimsProvider>
 
 **Note** For additional information, see section § *Specifying a
 technical profile for an OAuth 2.0 claims provider* in the sixth part of
@@ -1199,25 +1199,25 @@ i.e. the “*YourClientIDValue*” and “*YourClientSecretValue*” values.
 The following XML code snippet illustrates the above: *+ instructions
 that relate to cryptographic key for the “YourClientSecretValue” value.*
 
-&lt;ClaimsProvider&gt;
+<ClaimsProvider>
 
-&lt;DisplayName&gt;Facebook&lt;/DisplayName&gt;
+<DisplayName>Facebook</DisplayName>
 
-&lt;TechnicalProfiles&gt;
+<TechnicalProfiles>
 
-&lt;TechnicalProfile Id="Facebook-OAUTH"&gt;
+<TechnicalProfile Id="Facebook-OAUTH">
 
-&lt;Metadata&gt;
+<Metadata>
 
-&lt;Item Key="client\_id"&gt;***YourClientIDValue***&lt;/Item&gt;
+<Item Key="client\_id">***YourClientIDValue***</Item>
 
-&lt;/Metadata&gt;
+</Metadata>
 
-&lt;/TechnicalProfile&gt;
+</TechnicalProfile>
 
-&lt;/TechnicalProfiles&gt;
+</TechnicalProfiles>
 
-&lt;/ClaimsProvider&gt;
+</ClaimsProvider>
 
 **Note** For additional information, see section § *Specifying a
 technical profile for an OAuth 2.0 claims provider* in the sixth part of
@@ -1287,25 +1287,25 @@ the “*YourClientIDValue*” and “*YourClientSecretValue*” values.
 The following XML code snippet illustrates the above: *+ instructions
 that relate to cryptographic key for the “YourClientSecretValue” value.*
 
-&lt;ClaimsProvider&gt;
+<ClaimsProvider>
 
-&lt;DisplayName&gt;Google&lt;/DisplayName&gt;
+<DisplayName>Google</DisplayName>
 
-&lt;TechnicalProfiles&gt;
+<TechnicalProfiles>
 
-&lt;TechnicalProfile Id="Google-OAUTH"&gt;
+<TechnicalProfile Id="Google-OAUTH">
 
-&lt;Metadata&gt;
+<Metadata>
 
-&lt;Item Key="client\_id"&gt;***YourClientIDValue***&lt;/Item&gt;
+<Item Key="client\_id">***YourClientIDValue***</Item>
 
-&lt;/Metadata&gt;
+</Metadata>
 
-&lt;/TechnicalProfile&gt;
+</TechnicalProfile>
 
-&lt;/TechnicalProfiles&gt;
+</TechnicalProfiles>
 
-&lt;/ClaimsProvider&gt;
+</ClaimsProvider>
 
 **Note** For additional information, see section § *Specifying a
 technical profile for an OAuth 2.0 claims provider* in the sixth part of
@@ -1371,27 +1371,27 @@ i.e. the “*YourClientIDValue*” and “*YourClientSecretValue*” values.
 The following XML code snippet illustrates the above: *+ instructions
 that relate to cryptographic key for the “YourClientSecretValue” value.*
 
-&lt;ClaimsProvider&gt;
+<ClaimsProvider>
 
-&lt;Domain&gt;linkedin.com&lt;/Domain&gt;
+<Domain>linkedin.com</Domain>
 
-&lt;DisplayName&gt;Linkedin&lt;/DisplayName&gt;
+<DisplayName>Linkedin</DisplayName>
 
-&lt;TechnicalProfiles&gt;
+<TechnicalProfiles>
 
-&lt;TechnicalProfile Id="LinkedIn-OAUTH"&gt;
+<TechnicalProfile Id="LinkedIn-OAUTH">
 
-&lt;Metadata&gt;
+<Metadata>
 
-&lt;Item Key="client\_id"&gt;***YourClientIDValue***&lt;/Item&gt;
+<Item Key="client\_id">***YourClientIDValue***</Item>
 
-&lt;/Metadata&gt;
+</Metadata>
 
-&lt;/TechnicalProfile&gt;
+</TechnicalProfile>
 
-&lt;/TechnicalProfiles&gt;
+</TechnicalProfiles>
 
-&lt;/ClaimsProvider&gt;
+</ClaimsProvider>
 
 **Note** For additional information, see section § *Specifying a
 technical profile for an OAuth 2.0 claims provider* in the sixth part of
@@ -1463,33 +1463,33 @@ The following XML code snippet illustrates the above: *+ instructions
 that relate to cryptographic key for the “YourClientSecretValue” value.
 *
 
-&lt;ClaimsProvider&gt;
+<ClaimsProvider>
 
-&lt;DisplayName&gt;Microsoft Account&lt;/DisplayName&gt;
+<DisplayName>Microsoft Account</DisplayName>
 
-&lt;TechnicalProfiles&gt;
+<TechnicalProfiles>
 
-&lt;TechnicalProfile Id="MSA-OIDC"&gt;
+<TechnicalProfile Id="MSA-OIDC">
 
-&lt;DisplayName&gt;Microsoft Account&lt;/DisplayName&gt;
+<DisplayName>Microsoft Account</DisplayName>
 
-&lt;Metadata&gt;
+<Metadata>
 
-&lt;Item Key="MsaOriginalClientId"&gt;0000000040143214&lt;/Item&gt;
+<Item Key="MsaOriginalClientId">0000000040143214</Item>
 
-&lt;Item Key="client\_id"&gt;***YourClientIDValue***&lt;/Item&gt;
+<Item Key="client\_id">***YourClientIDValue***</Item>
 
-&lt;Item Key="IdTokenAudience"&gt;***YourClientIDValue***&lt;/Item&gt;
+<Item Key="IdTokenAudience">***YourClientIDValue***</Item>
 
-&lt;Item Key="UsePolicyInRedirectUri"&gt;0&lt;/Item&gt;
+<Item Key="UsePolicyInRedirectUri">0</Item>
 
-&lt;/Metadata&gt;
+</Metadata>
 
-&lt;/TechnicalProfile&gt;
+</TechnicalProfile>
 
-&lt;/TechnicalProfiles&gt;
+</TechnicalProfiles>
 
-&lt;/ClaimsProvider&gt;
+</ClaimsProvider>
 
 **Note** For additional information, see section § *Specifying a
 technical profile for an OpenID Connect claims provider* in the sixth
@@ -1537,86 +1537,86 @@ i.e. the “*YourClientIDValue*” and “*YourClientSecretValue*” values.
 The following XML code snippet illustrates the above: *+ instructions
 that relate to cryptographic key for the “YourClientSecretValue” value.*
 
-&lt;ClaimsProvider&gt;
+<ClaimsProvider>
 
-&lt;DisplayName&gt;Twitter&lt;/DisplayName&gt;
+<DisplayName>Twitter</DisplayName>
 
-&lt;TechnicalProfiles&gt;
+<TechnicalProfiles>
 
-&lt;TechnicalProfile Id="Twitter-OAUTH1"&gt;
+<TechnicalProfile Id="Twitter-OAUTH1">
 
-&lt;DisplayName&gt;Twitter&lt;/DisplayName&gt;
+<DisplayName>Twitter</DisplayName>
 
-&lt;Protocol Name="OAuth1" /&gt;
+<Protocol Name="OAuth1" />
 
-&lt;Metadata&gt;
+<Metadata>
 
-&lt;Item Key="ProviderName"&gt;twitter&lt;/Item&gt;
+<Item Key="ProviderName">twitter</Item>
 
-&lt;Item
-Key="request\_token\_endpoint"&gt;https://api.twitter.com/oauth/request\_token&lt;/Item&gt;
+<Item
+Key="request\_token\_endpoint">https://api.twitter.com/oauth/request\_token</Item>
 
-&lt;Item
-Key="authorization\_endpoint"&gt;https://api.twitter.com/oauth/authenticate&lt;/Item&gt;
+<Item
+Key="authorization\_endpoint">https://api.twitter.com/oauth/authenticate</Item>
 
-&lt;Item
-Key="access\_token\_endpoint"&gt;https://api.twitter.com/oauth/access\_token&lt;/Item&gt;
+<Item
+Key="access\_token\_endpoint">https://api.twitter.com/oauth/access\_token</Item>
 
-&lt;Item Key="client\_id"&gt;CMoQQI355stTG3lumdgYRsf8a&lt;/Item&gt;
+<Item Key="client\_id">CMoQQI355stTG3lumdgYRsf8a</Item>
 
-&lt;/Metadata&gt;
+</Metadata>
 
-&lt;CryptographicKeys&gt;
+<CryptographicKeys>
 
-&lt;Key Id="client\_secret" StorageReferenceId="TwitterSecret" /&gt;
+<Key Id="client\_secret" StorageReferenceId="TwitterSecret" />
 
-&lt;/CryptographicKeys&gt;
+</CryptographicKeys>
 
-&lt;InputClaims /&gt;
+<InputClaims />
 
-&lt;OutputClaims&gt;
+<OutputClaims>
 
-&lt;OutputClaim ClaimTypeReferenceId="userId"
-PartnerClaimType="user\_id" /&gt;
+<OutputClaim ClaimTypeReferenceId="userId"
+PartnerClaimType="user\_id" />
 
-&lt;OutputClaim ClaimTypeReferenceId="givenName"
-PartnerClaimType="given\_name" /&gt;
+<OutputClaim ClaimTypeReferenceId="givenName"
+PartnerClaimType="given\_name" />
 
-&lt;OutputClaim ClaimTypeReferenceId="surname"
-PartnerClaimType="family\_name" /&gt;
+<OutputClaim ClaimTypeReferenceId="surname"
+PartnerClaimType="family\_name" />
 
-&lt;OutputClaim ClaimTypeReferenceId="displayName"
-PartnerClaimType="screen\_name" /&gt;
+<OutputClaim ClaimTypeReferenceId="displayName"
+PartnerClaimType="screen\_name" />
 
-&lt;OutputClaim ClaimTypeReferenceId="email" PartnerClaimType="email"
-/&gt;
+<OutputClaim ClaimTypeReferenceId="email" PartnerClaimType="email"
+/>
 
-&lt;OutputClaim ClaimTypeReferenceId="identityProvider"
-DefaultValue="twitter.com" /&gt;
+<OutputClaim ClaimTypeReferenceId="identityProvider"
+DefaultValue="twitter.com" />
 
-&lt;OutputClaim ClaimTypeReferenceId="authenticationSource"
-DefaultValue="socialIdpAuthentication" /&gt;
+<OutputClaim ClaimTypeReferenceId="authenticationSource"
+DefaultValue="socialIdpAuthentication" />
 
-&lt;/OutputClaims&gt;
+</OutputClaims>
 
-&lt;OutputClaimsTransformations&gt;
+<OutputClaimsTransformations>
 
-&lt;OutputClaimsTransformation ReferenceId="CreateUserPrincipalName"
-/&gt;
+<OutputClaimsTransformation ReferenceId="CreateUserPrincipalName"
+/>
 
-&lt;OutputClaimsTransformation ReferenceId="CreateAlternativeSecurityId"
-/&gt;
+<OutputClaimsTransformation ReferenceId="CreateAlternativeSecurityId"
+/>
 
-&lt;OutputClaimsTransformation
-ReferenceId="CreateSubjectClaimFromAlternativeSecurityId" /&gt;
+<OutputClaimsTransformation
+ReferenceId="CreateSubjectClaimFromAlternativeSecurityId" />
 
-&lt;/OutputClaimsTransformations&gt;
+</OutputClaimsTransformations>
 
-&lt;/TechnicalProfile&gt;
+</TechnicalProfile>
 
-&lt;/TechnicalProfiles&gt;
+</TechnicalProfiles>
 
-&lt;/ClaimsProvider&gt;
+</ClaimsProvider>
 
 **Note** For additional information, see section § *Specifying a
 technical profile for an OAuth 1.0 claims provider* in the sixth part of
@@ -1640,7 +1640,7 @@ missing claim type information*.
 To add new claims type in the policy, proceed with the following steps:
 
 1.  Use your favorite XML editor to open the
-    *&lt;your\_b2c\_tenant&gt;\_B2C\_1A\_Base\_Extensions.xml* policy
+    *<your\_b2c\_tenant>\_B2C\_1A\_Base\_Extensions.xml* policy
     XML file of the “Starter Pack”, i.e. the file
     *contoso369b2c.onmicrosoft.com\_B2C\_1A\_Base\_Extensions.xml* in
     our configuration.
@@ -1653,7 +1653,7 @@ the *B2CPolicies\\Advanced Policies Starter Pack* folder in the
     *ClaimsSchema* under the *BuildingsBlocks* XML element. This defines
     the Loyalty claims used by the REST API.
 
-&lt;TrustFrameworkPolicy
+<TrustFrameworkPolicy
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 
 xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -1666,53 +1666,53 @@ TenantId="contoso369b2c.onmicrosoft.com"
 
 PolicyId="B2C\_1A\_base\_extensions"
 
-PublicPolicyUri="http://contoso369b2c.onmicrosoft.com"&gt;
+PublicPolicyUri="http://contoso369b2c.onmicrosoft.com">
 
-&lt;BasePolicy&gt;
+<BasePolicy>
 
-&lt;TenantId&gt;contoso369b2c.onmicrosoft.com&lt;/TenantId&gt;
+<TenantId>contoso369b2c.onmicrosoft.com</TenantId>
 
-&lt;PolicyId&gt;B2C\_1A\_base&lt;/PolicyId&gt;
+<PolicyId>B2C\_1A\_base</PolicyId>
 
-&lt;/BasePolicy&gt;
+</BasePolicy>
 
-&lt;BuildingBlocks&gt;
+<BuildingBlocks>
 
-&lt;ClaimsSchema&gt;
+<ClaimsSchema>
 
-&lt;ClaimType Id="Loyalty"&gt;
+<ClaimType Id="Loyalty">
 
-&lt;DisplayName&gt;Loyalty number&lt;/DisplayName&gt;
+<DisplayName>Loyalty number</DisplayName>
 
-&lt;DataType&gt;string&lt;/DataType&gt;
+<DataType>string</DataType>
 
-&lt;UserHelpText /&gt;
+<UserHelpText />
 
-&lt;UserInputType&gt;TextBox&lt;/UserInputType&gt;
+<UserInputType>TextBox</UserInputType>
 
-&lt;Restriction&gt;
+<Restriction>
 
-&lt;Pattern RegularExpression="\^\[a-zA-Z0-9\]+\[a-zA-Z0-9\_-\]\*\$"
+<Pattern RegularExpression="\^\[a-zA-Z0-9\]+\[a-zA-Z0-9\_-\]\*\$"
 HelpText="The loyalty number you provided is not
 
 valid. It must begin with an alphabet or number and can contain
 alphabets,
 
-numbers and the following symbols: \_ -" /&gt;
+numbers and the following symbols: \_ -" />
 
-&lt;/Restriction&gt;
+</Restriction>
 
-&lt;/ClaimType&gt;
+</ClaimType>
 
-&lt;/ClaimsSchema&gt;
-
-…
-
-&lt;BuildingBlocks&gt;
+</ClaimsSchema>
 
 …
 
-&lt;/TrustFrameworkPolicy&gt;
+<BuildingBlocks>
+
+…
+
+</TrustFrameworkPolicy>
 
 1.  Save the policy XML file.
 
@@ -1727,7 +1727,7 @@ b.  Click **Upload Policy**.
 
 c.  Check **Overwrite the policy if it exists** and Click **Select a
     file**. Browse and select the modified policy XML file
-    *&lt;your\_b2c\_tenant&gt;\_B2C\_1A\_Base\_Extensions.xml*, i.e. the
+    *<your\_b2c\_tenant>\_B2C\_1A\_Base\_Extensions.xml*, i.e. the
     file *contoso369b2c.onmicrosoft.com\_B2C\_1A\_Base\_Extensions.xml*
     in our configuration.
 
@@ -1939,15 +1939,15 @@ Proceed with the following steps:
 
 3.  Type the following URL in the textbox next to **GET**:
 
-https://graph.windows.net/*&lt;tenant domain name&gt;*/applications/?\$filter=appId
-eq '&lt;*Client ID*&gt;
+https://graph.windows.net/*<tenant domain name>*/applications/?\$filter=appId
+eq '<*Client ID*>
 
 Where:
 
--   &lt;*tenant domain name*&gt; is the name of your directory for which
+-   <*tenant domain name*> is the name of your directory for which
     > you are creating the technical profile:
 
--   &lt;*Client ID*&gt; is the “*Client ID*” value noted above. Do do
+-   <*Client ID*> is the “*Client ID*” value noted above. Do do
     not include { or } and make sure you have single quotes around it:
 
 https://graph.windows.net/*contoso369.onmicrosoft.com*/applications/?\$filter=appId
@@ -2098,20 +2098,20 @@ section, for example, in our illustration with the **AAD-WriteCommon**
 defined in the *B2C\_1A\_base* premium policy as described in the third
 part of this series of documents:
 
-&lt;TechnicalProfile Id="AAD-WriteCommon"&gt;
+<TechnicalProfile Id="AAD-WriteCommon">
 
-&lt;DisplayName&gt;Azure Active Directory&lt;/DisplayName&gt;
+<DisplayName>Azure Active Directory</DisplayName>
 
-&lt;Metadata&gt;
+<Metadata>
 
-&lt;Item
-Key="ApplicationObjectId"&gt;f29764fa-dbfa-4d79-a8ba-7c628d3112b0&lt;/Item&gt;
+<Item
+Key="ApplicationObjectId">f29764fa-dbfa-4d79-a8ba-7c628d3112b0</Item>
 
-&lt;/Metadata&gt;
+</Metadata>
 
-&lt;IncludeTechnicalProfile ReferenceId="AAD-Common" /&gt;
+<IncludeTechnicalProfile ReferenceId="AAD-Common" />
 
-&lt;/TechnicalProfile&gt;
+</TechnicalProfile>
 
 #### Adding extension properties in the technical profiles
 
@@ -2119,7 +2119,7 @@ Extension attributes in Graph API are named using the pattern
 *extension\_objectId\_attribute*.
 
 The preferable mechanism is to name the *PartnerClaimType* in the format
-*extension\_cpim\_&lt;XXX&gt;* where *XXX* is the attribute name to be
+*extension\_cpim\_<XXX>* where *XXX* is the attribute name to be
 stored.
 
 When Azure AD B2C Premium processes this *PartnerClaimType*, it will
@@ -2182,17 +2182,17 @@ proceed with the following steps:
 The *Starter-Pack* folder corresponds to the path
 *C:\\Code\\AAD-B2C\\B2CDemoTools-master* in our configuration.
 
-PS&gt; cd C:\\Code\\AAD-B2C\\B2CDemoTools-master\\ExploreAdmin
+PS> cd C:\\Code\\AAD-B2C\\B2CDemoTools-master\\ExploreAdmin
 
 1.  Generate the cryptographic keys in your B2C tenant by running the
     following commands:
 
-PS&gt; Import-Module .\\ExploreAdmin.dll
+PS> Import-Module .\\ExploreAdmin.dll
 
-PS&gt; Set-CpimKeyContainer -Tenant contoso369b2c.onmicrosoft.com
+PS> Set-CpimKeyContainer -Tenant contoso369b2c.onmicrosoft.com
 -StorageReferenceId B2cRestClientId -UnencodedAsciiKey 12345678
 
-PS&gt; Set-CpimKeyContainer -Tenant contoso369b2c.onmicrosoft.com
+PS> Set-CpimKeyContainer -Tenant contoso369b2c.onmicrosoft.com
 -StorageReferenceId B2cRestClientSecret -UnencodedAsciiKey abcdef
 
 **Note** The clientId *12345678*, clientSecret *abcdef* are preset in
@@ -2215,7 +2215,7 @@ To configure the RESTful API claims provider in the policy, proceed with
 the following steps:
 
 1.  Use your favorite XML editor to open the
-    *&lt;your\_b2c\_tenant&gt;\_B2C\_1A\_Base\_Extensions.xml* policy
+    *<your\_b2c\_tenant>\_B2C\_1A\_Base\_Extensions.xml* policy
     XML file of the “Starter Pack”, i.e. the file
     *contoso369b2c.onmicrosoft.com\_B2C\_1A\_Base\_Extensions.xml* in
     our configuration.
@@ -2230,180 +2230,180 @@ the *B2CPolicies\\Advanced Policies Starter Pack* folder in the
 2.  Add the RESTful API claims provider to the policy.
 
     a.  Insert the following declaration
-        in-between&lt;ClaimProviders&gt; &lt;/ClaimsProviders&gt; after
-        the last &lt;/ClaimsProvider&gt;in the section.
+        in-between<ClaimProviders> </ClaimsProviders> after
+        the last </ClaimsProvider>in the section.
 
-&lt;ClaimsProvider&gt;
+<ClaimsProvider>
 
-&lt;DisplayName&gt;Loyalty Rest Api&lt;/DisplayName&gt;
+<DisplayName>Loyalty Rest Api</DisplayName>
 
-&lt;TechnicalProfiles&gt;
+<TechnicalProfiles>
 
-&lt;TechnicalProfile Id="LoyaltyRest"&gt;
+<TechnicalProfile Id="LoyaltyRest">
 
-&lt;DisplayName&gt;Restful Claims Provider&lt;/DisplayName&gt;
+<DisplayName>Restful Claims Provider</DisplayName>
 
-&lt;Protocol Name="Proprietary"
+<Protocol Name="Proprietary"
 Handler="Web.TPEngine.Providers.RestfulProvider, Web.TPEngine,
 Version=1.0.0.0,
 
-Culture=neutral, PublicKeyToken=null" /&gt;
+Culture=neutral, PublicKeyToken=null" />
 
-&lt;!--&lt;InputTokenFormat&gt;JWT&lt;/InputTokenFormat&gt;--&gt;
+<!--<InputTokenFormat>JWT</InputTokenFormat>-->
 
-&lt;Metadata&gt;
+<Metadata>
 
-&lt;Item
-Key="userinfo\_endpoint"&gt;http://b2cauthapi.azurewebsites.net/api/loyalty&lt;/Item&gt;
+<Item
+Key="userinfo\_endpoint">http://b2cauthapi.azurewebsites.net/api/loyalty</Item>
 
-&lt;Item Key="AuthenticationType"&gt;Basic&lt;/Item&gt;
+<Item Key="AuthenticationType">Basic</Item>
 
-&lt;Item Key="SendClaimsIn"&gt;Body&lt;/Item&gt;
+<Item Key="SendClaimsIn">Body</Item>
 
-&lt;Item
-Key="issuer"&gt;http://b2cauthapi.azurewebsites.net/&lt;/Item&gt;
+<Item
+Key="issuer">http://b2cauthapi.azurewebsites.net/</Item>
 
-&lt;/Metadata&gt;
+</Metadata>
 
-&lt;CryptographicKeys&gt;
+<CryptographicKeys>
 
-&lt;Key Id="BasicAuthenticationUsername"
-StorageReferenceId="B2cRestClientId" /&gt;
+<Key Id="BasicAuthenticationUsername"
+StorageReferenceId="B2cRestClientId" />
 
-&lt;Key Id="BasicAuthenticationPassword"
-StorageReferenceId="B2cRestClientSecret" /&gt;
+<Key Id="BasicAuthenticationPassword"
+StorageReferenceId="B2cRestClientSecret" />
 
-&lt;/CryptographicKeys&gt;
+</CryptographicKeys>
 
-&lt;InputClaims&gt;
+<InputClaims>
 
-&lt;InputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="userid"
-/&gt;
+<InputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="userid"
+/>
 
-&lt;/InputClaims&gt;
+</InputClaims>
 
-&lt;OutputClaims&gt;
+<OutputClaims>
 
-&lt;OutputClaim ClaimTypeReferenceId="Loyalty"
-PartnerClaimType="LoyaltyNumber" /&gt;
+<OutputClaim ClaimTypeReferenceId="Loyalty"
+PartnerClaimType="LoyaltyNumber" />
 
-&lt;/OutputClaims&gt;
+</OutputClaims>
 
-&lt;UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" /&gt;
+<UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
 
-&lt;/TechnicalProfile&gt;
+</TechnicalProfile>
 
-&lt;TechnicalProfile Id="LoyaltyRest-Header"&gt;
+<TechnicalProfile Id="LoyaltyRest-Header">
 
-&lt;DisplayName&gt;Restful Claims Provider&lt;/DisplayName&gt;
+<DisplayName>Restful Claims Provider</DisplayName>
 
-&lt;Protocol Name="Proprietary"
+<Protocol Name="Proprietary"
 Handler="Web.TPEngine.Providers.RestfulProvider, Web.TPEngine,
 Version=1.0.0.0,
 
-Culture=neutral, PublicKeyToken=null" /&gt;
+Culture=neutral, PublicKeyToken=null" />
 
-&lt;!--&lt;InputTokenFormat&gt;JWT&lt;/InputTokenFormat&gt;--&gt;
+<!--<InputTokenFormat>JWT</InputTokenFormat>-->
 
-&lt;Metadata&gt;
+<Metadata>
 
-&lt;Item
-Key="userinfo\_endpoint"&gt;http://369b2cauthapi.azurewebsites.net/api/loyalty&lt;/Item&gt;
+<Item
+Key="userinfo\_endpoint">http://369b2cauthapi.azurewebsites.net/api/loyalty</Item>
 
-&lt;Item Key="AuthenticationType"&gt;Basic&lt;/Item&gt;
+<Item Key="AuthenticationType">Basic</Item>
 
-&lt;Item Key="SendClaimsIn"&gt;Header&lt;/Item&gt;
+<Item Key="SendClaimsIn">Header</Item>
 
-&lt;Item
-Key="issuer"&gt;http://369b2cauthapi.azurewebsites.net/&lt;/Item&gt;
+<Item
+Key="issuer">http://369b2cauthapi.azurewebsites.net/</Item>
 
-&lt;/Metadata&gt;
+</Metadata>
 
-&lt;CryptographicKeys&gt;
+<CryptographicKeys>
 
-&lt;Key Id="BasicAuthenticationUsername"
-StorageReferenceId="B2cRestClientId" /&gt;
+<Key Id="BasicAuthenticationUsername"
+StorageReferenceId="B2cRestClientId" />
 
-&lt;Key Id="BasicAuthenticationPassword"
-StorageReferenceId="B2cRestClientSecret" /&gt;
+<Key Id="BasicAuthenticationPassword"
+StorageReferenceId="B2cRestClientSecret" />
 
-&lt;/CryptographicKeys&gt;
+</CryptographicKeys>
 
-&lt;InputClaims&gt;
+<InputClaims>
 
-&lt;InputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="userid"
-/&gt;
+<InputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="userid"
+/>
 
-&lt;/InputClaims&gt;
+</InputClaims>
 
-&lt;OutputClaims&gt;
+<OutputClaims>
 
-&lt;OutputClaim ClaimTypeReferenceId="Loyalty"
-PartnerClaimType="LoyaltyNumber" /&gt;
+<OutputClaim ClaimTypeReferenceId="Loyalty"
+PartnerClaimType="LoyaltyNumber" />
 
-&lt;/OutputClaims&gt;
+</OutputClaims>
 
-&lt;UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" /&gt;
+<UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
 
-&lt;/TechnicalProfile&gt;
+</TechnicalProfile>
 
-&lt;TechnicalProfile Id="LoyaltyRest-Form"&gt;
+<TechnicalProfile Id="LoyaltyRest-Form">
 
-&lt;DisplayName&gt;Restful Claims Provider&lt;/DisplayName&gt;
+<DisplayName>Restful Claims Provider</DisplayName>
 
-&lt;Protocol Name="Proprietary"
+<Protocol Name="Proprietary"
 Handler="Web.TPEngine.Providers.RestfulProvider, Web.TPEngine,
 Version=1.0.0.0,
 
-Culture=neutral, PublicKeyToken=null" /&gt;
+Culture=neutral, PublicKeyToken=null" />
 
-&lt;!--&lt;InputTokenFormat&gt;JWT&lt;/InputTokenFormat&gt;--&gt;
+<!--<InputTokenFormat>JWT</InputTokenFormat>-->
 
-&lt;Metadata&gt;
+<Metadata>
 
-&lt;Item
-Key="userinfo\_endpoint"&gt;http://b2cauthapi.azurewebsites.net/api/loyalty&lt;/Item&gt;
+<Item
+Key="userinfo\_endpoint">http://b2cauthapi.azurewebsites.net/api/loyalty</Item>
 
-&lt;Item Key="AuthenticationType"&gt;Basic&lt;/Item&gt;
+<Item Key="AuthenticationType">Basic</Item>
 
-&lt;Item Key="SendClaimsIn"&gt;Form&lt;/Item&gt;
+<Item Key="SendClaimsIn">Form</Item>
 
-&lt;Item
-Key="issuer"&gt;http://b2cauthapi.azurewebsites.net/&lt;/Item&gt;
+<Item
+Key="issuer">http://b2cauthapi.azurewebsites.net/</Item>
 
-&lt;/Metadata&gt;
+</Metadata>
 
-&lt;CryptographicKeys&gt;
+<CryptographicKeys>
 
-&lt;Key Id="BasicAuthenticationUsername"
-StorageReferenceId="B2cRestClientId" /&gt;
+<Key Id="BasicAuthenticationUsername"
+StorageReferenceId="B2cRestClientId" />
 
-&lt;Key Id="BasicAuthenticationPassword"
-StorageReferenceId="B2cRestClientSecret" /&gt;
+<Key Id="BasicAuthenticationPassword"
+StorageReferenceId="B2cRestClientSecret" />
 
-&lt;/CryptographicKeys&gt;
+</CryptographicKeys>
 
-&lt;InputClaims&gt;
+<InputClaims>
 
-&lt;InputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="userid"
-/&gt;
+<InputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="userid"
+/>
 
-&lt;/InputClaims&gt;
+</InputClaims>
 
-&lt;OutputClaims&gt;
+<OutputClaims>
 
-&lt;OutputClaim ClaimTypeReferenceId="Loyalty"
-PartnerClaimType="LoyaltyNumber" /&gt;
+<OutputClaim ClaimTypeReferenceId="Loyalty"
+PartnerClaimType="LoyaltyNumber" />
 
-&lt;/OutputClaims&gt;
+</OutputClaims>
 
-&lt;UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" /&gt;
+<UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
 
-&lt;/TechnicalProfile&gt;
+</TechnicalProfile>
 
-&lt;/TechnicalProfiles&gt;
+</TechnicalProfiles>
 
-&lt;/ClaimsProvider&gt;
+</ClaimsProvider>
 
 **Note** For additional information, see section § *Specifying a
 technical profile for a RESTful claims provider* in the sixth part of
@@ -2416,7 +2416,7 @@ along with the implementation notes for the technical profile if any.
     a.  Modify the *userinfo\_endpoint* key to reflect the based URL
         where you’ve deployed the RESTful API claims provider sample:
 
-http://&lt;*your\_deployment*&gt;.azurewebsites.net/api/loyalty
+http://<*your\_deployment*>.azurewebsites.net/api/loyalty
 
 > for example, in our configuration:
 
@@ -2429,7 +2429,7 @@ API claims provider in the Appendix A. Building the samples of the
 a.  Likewise, modify the *ProviderName* key to reflect the base URL
     where you’ve deployed the OIDC claims provider sample:
 
-http://&lt;your\_deployment&gt;.azurewebsites.net/identity
+http://<your\_deployment>.azurewebsites.net/identity
 
 > for example, in our configuration:
 
@@ -2443,7 +2443,7 @@ http://&lt;your\_deployment&gt;.azurewebsites.net/identity
 
 <!-- -->
 
-a.  Find “*&lt;OrchestrationStep Order="10" Type="SendClaims"*” in the
+a.  Find “*<OrchestrationStep Order="10" Type="SendClaims"*” in the
     **SignUpOrSignInWithRestAndIdp** user journey.
 
 b.  Change this step’s *Order* to 11 because we will add an additional
@@ -2451,16 +2451,16 @@ b.  Change this step’s *Order* to 11 because we will add an additional
 
 c.  Add the following lines as the new orchestration step order 10.
 
-&lt;OrchestrationStep Order="10" Type="ClaimsExchange"&gt;
+<OrchestrationStep Order="10" Type="ClaimsExchange">
 
-&lt;ClaimsExchanges&gt;
+<ClaimsExchanges>
 
-&lt;ClaimsExchange Id="LoyaltyRestExchange"
-TechnicalProfileReferenceId="LoyaltyRest" /&gt;
+<ClaimsExchange Id="LoyaltyRestExchange"
+TechnicalProfileReferenceId="LoyaltyRest" />
 
-&lt;/ClaimsExchanges&gt;
+</ClaimsExchanges>
 
-&lt;/OrchestrationStep&gt;
+</OrchestrationStep>
 
 1.  Save the policy XML file.
 
@@ -2475,7 +2475,7 @@ b.  Click **Upload Policy**.
 
 c.  Check **Overwrite the policy if it exists** and Click **Select a
     file**. Browse and select the modified policy XML file
-    *&lt;your\_b2c\_tenant&gt;\_B2C\_1A\_Base\_Extensions.xml*, i.e. the
+    *<your\_b2c\_tenant>\_B2C\_1A\_Base\_Extensions.xml*, i.e. the
     file *contoso369b2c.onmicrosoft.com\_B2C\_1A\_Base\_Extensions.xml*
     in our configuration.
 
@@ -2490,14 +2490,14 @@ steps:
 1.  Create a new policy named *B2C\_1A\_SignupWithRestAndIdp*.
 
     a.  Copy the policy
-        *&lt;your\_b2c\_tenant&gt;.onmicrosoft.com\_signin.xml* of the
+        *<your\_b2c\_tenant>.onmicrosoft.com\_signin.xml* of the
         “Starter Pack”, for example
         *contoso369b2c.onmicrosoft.com\_signin.xml* in our configuration
         to your location. This policy is located in the folder
         *B2CPolicies\\Advanced Policies Starter pack* in *Starter-Pack*.
 
     b.  Rename it to
-        *&lt;your\_b2c\_tenant&gt;\_B2C\_1A\_SignupWithRestAndIdp.xml*,
+        *<your\_b2c\_tenant>\_B2C\_1A\_SignupWithRestAndIdp.xml*,
         for example *contoso369b2c.onmicrosoft.
         SignupWithRestAndIdp.xml* in our configuration.
 
@@ -2587,27 +2587,27 @@ files as appropriate.
 > blocked for customization.
 
 In each of your HTML5/CSS templates, you provide an “anchor” element,
-which corresponds to the required &lt;div id=”api”&gt; element in the
+which corresponds to the required <div id=”api”> element in the
 HTML or the content page as illustrate hereafter. Azure AD B2C indeed
 requires that all content pages have this specific div.
 
-&lt;!DOCTYPE html&gt;
+<!DOCTYPE html>
 
-&lt;html&gt;
+<html>
 
-&lt;head&gt;
+<head>
 
-&lt;title&gt;Your page content’s tile!&lt;/title&gt;
+<title>Your page content’s tile!</title>
 
-&lt;/head&gt;
+</head>
 
-&lt;body&gt;
+<body>
 
-&lt;div id="api"&gt;&lt;/div&gt;
+<div id="api"></div>
 
-&lt;/body&gt;
+</body>
 
-&lt;/html&gt;
+</html>
 
 Azure AD B2C-related content for the page will be injected into this
 div, while the rest of the page is yours to control. The Azure AD B2C’s
@@ -2767,9 +2767,9 @@ c.  Modify the connection string of the
     *CpimIdentityServerDbConnectionString* element to use the LocalDB
     engine" with the following change:
 
-&lt;connectionStrings&gt;
+<connectionStrings>
 
-&lt;add name="CpimIdentityServerDbConnectionString"
+<add name="CpimIdentityServerDbConnectionString"
 
 connectionString="Data Source=.\\SQLEXPRESS;Initial
 Catalog=CpimIdentityServer;
@@ -2778,24 +2778,24 @@ Integrated
 
 Security=True;MultipleActiveResultSets=True"
 
-providerName="System.Data.SqlClient" /&gt;
+providerName="System.Data.SqlClient" />
 
-&lt;/connectionStrings&gt;
+</connectionStrings>
 
 > to
 
-&lt;connectionStrings&gt;
+<connectionStrings>
 
-&lt;add name="CpimIdentityServerDbConnectionString"
+<add name="CpimIdentityServerDbConnectionString"
 
 connectionString="Data
 Source=(LocalDB)\\MSSQLLocalDB;InitialCatalog=CpimIdentityServer;
 
 Integrated Security=True;MultipleActiveResultSets=True"
 
-providerName="System.Data.SqlClient" /&gt;
+providerName="System.Data.SqlClient" />
 
-&lt;/connectionStrings&gt;
+</connectionStrings>
 
 a.  And you’re done. Save the *web.config* file.
 
@@ -2891,12 +2891,12 @@ provider, proceed with the following steps:
 
 6.  Click **Create** once enabled.
 
-7.  Click **Next &gt;**.
+7.  Click **Next >**.
 
-8.  Leave the form untouched, and then click **Next &gt;** again.
+8.  Leave the form untouched, and then click **Next >** again.
 
 9.  Select the configuration to deploy, i.e. **Release** vs. **Debug**,
-    in **Configuration**, and then click **Next &gt;**.
+    in **Configuration**, and then click **Next >**.
 
 10. Click **Publish**. Et voilà!
 
@@ -2929,12 +2929,12 @@ provider, proceed with the following steps:
 
 6.  Click **Create** once enabled.
 
-7.  Click **Next &gt;**.
+7.  Click **Next >**.
 
-8.  Leave the form untouched, and then click **Next &gt;** again.
+8.  Leave the form untouched, and then click **Next >** again.
 
 9.  Select the configuration to deploy, i.e. **Release** vs. **Debug**,
-    in **Configuration**, and then click **Next &gt;**.
+    in **Configuration**, and then click **Next >**.
 
 10. Click **Publish**. Et voilà!
 
