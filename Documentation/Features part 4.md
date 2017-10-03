@@ -319,11 +319,11 @@ the *B2CPolicies\\Advanced Policies Starter Pack* folder in the
 
 1.  Add the “generic” IdP as claims provider to the policy.
 
-    a.  Add or uncomment the following under `    </BuildingBlocks>;`
+    a.  Add or uncomment the following under `    </BuildingBlocks>`
 ```
-<ClaimsProviders>;
+<ClaimsProviders>
 
-</ClaimsProviders>;
+</ClaimsProviders>
 ```
 
 a.  Insert the following declaration in-between `<ClaimProviders> ... </ClaimProviders>`
