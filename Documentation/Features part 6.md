@@ -1,4 +1,4 @@
-#Technical Reference
+# Technical Reference
 
 Microsoft Corporation
 Published: July 2016
@@ -4009,7 +4009,7 @@ ReferenceId="CreateSubjectClaimFromAlternativeSecurityId" /&gt;
 
 &lt;/TechnicalProfile&gt;
 
-Specifying a technical profile for an OAuth 2.0 claims provider
+## Specifying a technical profile for an OAuth 2.0 claims provider
 ---------------------------------------------------------------
 
 Azure AD B2C Premium provides a support for the OAuth 2.0 protocol. This
@@ -4040,33 +4040,18 @@ XML schema.
 
 The following keys must or may be present in the *Metadata* XML element:
 
-  ------------------------------------------------------------------------------------------------------
-  Key                       Required   Description
-  ------------------------- ---------- -----------------------------------------------------------------
-  client\_id                False      Specify the identifier attributed by the OAuth 2.0 provider.
-
-  ProviderName              False      Specify the name of the OAuth2 provider.
-
-  authorization\_endpoint   True       Indicate the URL of the authorization endpoint as per RFC 6749.
-
-  AccessTokenEndpoint       True       Indicate the URL of the token endpoint as per RFC 6749.
-
-  ClaimsEndpoint            True       Indicate the URL of the user info endpoint as per RFC 6749.
-
-  redirect\_uri             False      Indicate the redirection point URL as per RFC 6749.
-
-  response\_types           False      Specify the response type as per RFC6749.
-
-                                       Value: code or token
-
-  scope                     False      Specify the scope of the access request as per RFC 6749
-
-  issuer                    False      Specify the issuer of the access request as per RFC 6749
-
-  HttpBinding               False      Specify the expected HTTP binding.
-
-                                       Value: **GET** or **POST**
-  ------------------------------------------------------------------------------------------------------
+ Key | Required | Description | Value
+ --|--|--|--
+ client_id | False | Specify the identifier attributed by the OAuth 2.0 provider. |
+ ProviderName | False | Specify the name of the OAuth2 provider. |
+ authorization_endpoint | True | Indicate the URL of the authorization endpoint as per RFC 6749. |
+ AccessTokenEndpoint | True | Indicate the URL of the token endpoint as per RFC 6749. |
+ ClaimsEndpoint | True | Indicate the URL of the user info endpoint as per RFC 6749. |
+ redirect_uri | False | Indicate the redirection point URL as per RFC 6749. |
+ response_types | False | Specify the response type as per RFC6749 | `code` or`token`
+ scope | False | Specify the scope of the access request as per RFC 6749 |
+ issuer | False | Specify the issuer of the access request as per RFC 6749 |
+ HttpBinding | False | Specify the expected HTTP binding. | `GET` or `POST`
 
 The *InputClaimsTransformations* XML element is absent.
 
