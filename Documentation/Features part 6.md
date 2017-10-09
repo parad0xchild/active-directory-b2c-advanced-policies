@@ -4137,7 +4137,7 @@ ReferenceId="CreateSubjectClaimFromAlternativeSecurityId" /&gt;
 
 &lt;/TechnicalProfile&gt;
 
-Specifying a technical profile for an OpenID Connect claims provider
+## Specifying a technical profile for an OpenID Connect claims provider
 --------------------------------------------------------------------
 
 Azure AD B2C Premium provides a support for the OpenID Connect protocol.
@@ -4187,42 +4187,20 @@ Premium XML schema.
 
 The following keys must or may be present in the *Metadata* XML element:
 
-  -----------------------------------------------------------------------------------------------------------------------------------
-  Key                       Required   Description
-  ------------------------- ---------- ----------------------------------------------------------------------------------------------
-  client\_id                False      Specify the identifier attributed by the OpenID Connect provider.
-
-  IdTokenAudience           False      Specify the audience of the id token.
-
-  ProviderName              True       Specify the name of the OpenID Connect provider.
-
-  METADATA                  False      Specify the JSON configuration document as per OpenID Connect Discovery specification.
-
-  authorization\_endpoint   True       Indicate the URL of the authorization endpoint as per OpenID Connect Core 1.0 specification.
-
-  redirect\_uri             False      Indicate the redirection point URL as per OpenID Connect Core 1.0 specification.
-
-  response\_types           False      Specify the response type as per OpenID Connect Core 1.0 specification.
-
-                                       Value: id\_token, code or token
-
-  response\_mode            False      Specify the response mode.
-
-                                       Value: query
-
-  scope                     False      Specify the scope of the access request as per OpenID Connect Core 1.0 specification.
-
-  issuer                    False      Specify the issuer of the access request as per OpenID Connect Core 1.0 specification.
-
-  HttpBinding               False      Specify the expected HTTP binding.
-
-                                       Value: **GET** or **POST**
-
-  LocalAccountProfile       False      TBD.
-
-                                       Value: true or false
-  -----------------------------------------------------------------------------------------------------------------------------------
-
+  Key | Required | Description | Value
+---|---|---|---
+client_id | False | Specify the identifier attributed by the OpenID Connect provider.| 
+IdTokenAudience | False | Specify the audience of the id token.| 
+ProviderName | True | Specify the name of the OpenID Connect provider.| 
+METADATA | False | Specify the JSON configuration document as per OpenID Connect Discovery specification.| 
+authorization_endpoint | True | Indicate the URL of the authorization endpoint as per OpenID Connect Core 1.0 specification.| 
+redirect_uri | False | Indicate the redirection point URL as per OpenID Connect Core 1.0 specification.| 
+response_types | False | Specify the response type as per OpenID Connect Core 1.0 specification.| `id_token`, `code` or `token`| 
+response_mode | False | Specify the response mode.| Value: query
+scope | False | Specify the scope of the access request as per OpenID Connect Core 1.0 specification.| 
+issuer | False | Specify the issuer of the access request as per OpenID Connect Core 1.0 specification.| 
+HttpBinding | False | Specify the expected HTTP binding.| `GET` or `POST`
+LocalAccountProfile | False | TBD.| `true` or `false`
 The *InputClaimsTransformations* XML element is absent.
 
 The *InputClaims* XML element contains the claims bag as the input with
