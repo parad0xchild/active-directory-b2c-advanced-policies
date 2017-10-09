@@ -4201,6 +4201,7 @@ scope | False | Specify the scope of the access request as per OpenID Connect Co
 issuer | False | Specify the issuer of the access request as per OpenID Connect Core 1.0 specification.| 
 HttpBinding | False | Specify the expected HTTP binding.| `GET` or `POST`
 LocalAccountProfile | False | TBD.| `true` or `false`
+
 The *InputClaimsTransformations* XML element is absent.
 
 The *InputClaims* XML element contains the claims bag as the input with
